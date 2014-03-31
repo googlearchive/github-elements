@@ -27,7 +27,7 @@ limitations under the License.
         border-radius: 3px;
         margin: 5px;
         padding: 5px;
-        background-color: rgba(242,242,242,1); 
+        background-color: rgba(242,242,242,1);
       }
 
       #form {
@@ -94,7 +94,7 @@ limitations under the License.
   
   <script>
     Polymer('github-element', {
-      token: '',
+      token: null,
       message: '',
       signedIn: false,
       signingIn: false,
@@ -147,6 +147,7 @@ limitations under the License.
 
       save: function(description, publicGist, files) {
         if (!this.github) {
+          this.toast('No GitHub connection was established.');
           return;
         }
 
@@ -175,6 +176,7 @@ limitations under the License.
 
       update: function(id, description, publicGist, files) {
         if (!this.github) {
+          this.toast('No GitHub connection was established.');
           return;
         }
 

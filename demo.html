@@ -6,6 +6,11 @@
   <script src="../platform/platform.js"></script>
   <link rel="import" href="github-elements.html">
 
+  <style>
+    body {
+      font-family: sans-serif;
+    }
+  </style>
 </head>
 <body unresolved>
 
@@ -30,10 +35,11 @@ Sweet.</textarea>
       document.querySelector('div').innerHTML += this.message + '<br>';
     });
 
+    var text = document.querySelector('textarea');
     function saveGist() {
-      github.save('test', 'true', {
+      github.save('test', true, {
         'test.md': {
-          content: '# Test \n\n Sweet.'
+          content: text.value
         }
       });
     }
