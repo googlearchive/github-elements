@@ -159,6 +159,7 @@ limitations under the License.
           }, function(error, response) {
             if (!error) {
               window.location.hash = response.id;
+              this.fire('files-saved', response);
               this.toast('Saved files to <a href="' + response.html_url + '">'  + response.html_url + '</a>');
             } else {
               if (error.error == 401) { // unauthorized
