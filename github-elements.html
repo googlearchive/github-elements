@@ -40,6 +40,7 @@ limitations under the License.
       }
 
       #signIn-screen {
+        display: none;
         position: absolute; 
         left: calc(50vw - 125px); 
         top: calc(40vh - 60px); 
@@ -100,8 +101,10 @@ limitations under the License.
       signingIn: false,
 
       ready: function() {
-        this.signingInChanged();
-        this.token = window.localStorage['github-element-token'] || '';
+        //this.signingInChanged();
+        if (!this.token) {
+          this.token = window.localStorage['github-element-token'] || '';
+        }
       },
 
       signingInChanged: function() {
