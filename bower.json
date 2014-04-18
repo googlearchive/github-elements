@@ -4,5 +4,6 @@
   "dependencies": {
     "polymer": "Polymer/polymer",
     "github": "michael/github#master"
-  }
+  },
+  "version": "0.2.3"
 }
