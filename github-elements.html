@@ -148,7 +148,7 @@ limitations under the License.
         }.bind(this), delay);
       },
 
-      save: function(description, publicGist, files) {
+      save: function(description, publicGist, files, callback) {
         if (!this.github) {
           this.toast('No GitHub connection was established.');
           return;
@@ -162,6 +162,9 @@ limitations under the License.
           }, function(error, response) {
             if (!error) {
               window.location.hash = response.id;
+              if (callback) {
+                callback();
+              }
               this.fire('files-saved', response);
               this.toast('Saved files to <a href="' + response.html_url + '">'  + response.html_url + '</a>');
             } else {
@@ -178,7 +181,7 @@ limitations under the License.
           }.bind(this));
       },
 
-      update: function(id, description, publicGist, files) {
+      update: function(id, description, publicGist, files, callback) {
         if (!this.github) {
           this.toast('No GitHub connection was established.');
           return;
@@ -191,6 +194,10 @@ limitations under the License.
           }, function(error, response) {
             if (!error) {
               window.location.hash = response.id;
+              if (callback) {
+                callback();
+              }
+              this.fire('files-updated', response);
               this.toast('Saved files to <a href="' + response.html_url + '">'  + response.html_url + '</a>');
             } else {
               if (error.error == 401) { // unauthorized
@@ -209,7 +216,7 @@ limitations under the License.
           }.bind(this));
       },
 
-      load: function(id) {
+      load: function(id, callback) {
         if (!this.github) {
           return;
         }
@@ -217,6 +224,9 @@ limitations under the License.
         var gist = this.github.getGist(id);
         gist.read(function(error, response) {
           if (!error) {
+            if (callback) {
+              callback();
+            }
             this.fire('files-loaded', response.files);
             this.toast('Loaded files from ' + response.html_url);
           } else {
