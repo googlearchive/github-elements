@@ -162,10 +162,10 @@ limitations under the License.
           }, function(error, response) {
             if (!error) {
               window.location.hash = response.id;
+              this.fire('files-saved', response);
               if (callback) {
                 callback();
               }
-              this.fire('files-saved', response);
               this.toast('Saved files to <a href="' + response.html_url + '">'  + response.html_url + '</a>');
             } else {
               if (error.error == 401) { // unauthorized
@@ -194,10 +194,10 @@ limitations under the License.
           }, function(error, response) {
             if (!error) {
               window.location.hash = response.id;
+              this.fire('files-updated', response);
               if (callback) {
                 callback();
               }
-              this.fire('files-updated', response);
               this.toast('Saved files to <a href="' + response.html_url + '">'  + response.html_url + '</a>');
             } else {
               if (error.error == 401) { // unauthorized
@@ -224,10 +224,10 @@ limitations under the License.
         var gist = this.github.getGist(id);
         gist.read(function(error, response) {
           if (!error) {
+            this.fire('files-loaded', response.files);
             if (callback) {
               callback();
             }
-            this.fire('files-loaded', response.files);
             this.toast('Loaded files from ' + response.html_url);
           } else {
             if (error.error == 401) { // unauthorized
