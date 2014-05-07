@@ -51,19 +51,6 @@ limitations under the License.
         vertical-align: middle;
       }
 
-      /*
-      wat-button {
-        display: inline-flex;
-        margin: 10px 2.5px;
-        width: 115px;
-        height: 32px;
-      }
-
-      wat-button ^^ button {
-        padding: 5px;
-      }
-      */
-
       #github-token{
         display: inline-block;
         width: 235px;
@@ -101,14 +88,16 @@ limitations under the License.
       signingIn: false,
 
       ready: function() {
-        //this.signingInChanged();
         if (!this.token) {
           this.token = window.localStorage['github-element-token'] || '';
         }
       },
 
       signingInChanged: function() {
-        this.$['signIn-screen'].style.display = this.signingIn ? '' : 'none';
+        this.$['signIn-screen'].style.display = this.signingIn ? 'block' : 'none';
+        if (this.signingIn) {
+          this.$['github-token'].focus()
+        }
       },
 
       tokenChanged: function() {
@@ -120,9 +109,11 @@ limitations under the License.
           window.localStorage.clear();
         }
         this.github = new Github({token: this.token});
+        /*
         if (!this.signedIn) {
           this.signIn();
         }
+        */
         this.fire('token-changed');
       },
 
@@ -248,9 +239,6 @@ limitations under the License.
 
       signIn: function() {
         this.signingIn = true;
-        this.async(function() {
-          this.$['github-token'].focus()
-        });
       },
 
       signOut: function() {
@@ -267,7 +255,6 @@ limitations under the License.
       },
 
       checkKeyCode: function(e) {
-        console.log(e);
         if (e.keyCode == 13) { // 'Enter'
           this.confirm();
         } else if (e.keyCode == 27) { // 'Escape'
