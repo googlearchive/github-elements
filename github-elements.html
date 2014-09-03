@@ -152,9 +152,6 @@ limitations under the License.
             if (!error) {
               window.location.hash = response.id;
               this.fire('files-saved', response);
-              if (callback) {
-                callback();
-              }
               this.toast('Saved files to <a href="' + response.html_url + '">'  + response.html_url + '</a>');
             } else {
               if (error.error == 401) { // unauthorized
@@ -166,6 +163,9 @@ limitations under the License.
               } else {
                 console.error(error);
               }
+            }
+            if (callback) {
+              callback(error, response);
             }
           }.bind(this));
       },
@@ -184,9 +184,6 @@ limitations under the License.
             if (!error) {
               window.location.hash = response.id;
               this.fire('files-updated', response);
-              if (callback) {
-                callback();
-              }
               this.toast('Saved files to <a href="' + response.html_url + '">'  + response.html_url + '</a>');
             } else {
               if (error.error == 401) { // unauthorized
@@ -202,6 +199,9 @@ limitations under the License.
                 console.error(error);
               }
             }
+            if (callback) {
+              callback(error, response);
+            }
           }.bind(this));
       },
 
@@ -214,9 +214,6 @@ limitations under the License.
         gist.read(function(error, response) {
           if (!error) {
             this.fire('files-loaded', response.files);
-            if (callback) {
-              callback();
-            }
             this.toast('Loaded files from ' + response.html_url);
           } else {
             if (error.error == 401) { // unauthorized
@@ -231,6 +228,9 @@ limitations under the License.
             } else {
               console.error(error);
             }
+          }
+          if (callback) {
+            callback(error, response);
           }
         }.bind(this));
       },
